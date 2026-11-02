@@ -35,7 +35,13 @@ const URL_FRASES = 'https://raw.githubusercontent.com/dslo-dev/open-ToDo/main/pu
 const FRASES_RESPALDO = [
   { frase: 'El éxito es la suma de pequeños esfuerzos repetidos día tras día.', autor: 'Robert Collier' },
   { frase: 'La disciplina es el puente entre las metas y los logros.', autor: 'Jim Rohn' },
-  { frase: 'No cuentes los días, haz que los días cuenten.', autor: 'Muhammad Ali' }
+  { frase: 'No cuentes los días, haz que los días cuenten.', autor: 'Muhammad Ali' },
+  { frase: 'La motivación te impulsa a empezar, pero el hábito te mantiene en marcha.', autor: 'Jim Ryun' },
+  { frase: 'El único lugar donde el éxito viene antes que el trabajo es en el diccionario.', autor: 'Vidal Sassoon' },
+  { frase: 'El éxito no es la clave de la felicidad. La felicidad es la clave del éxito.', autor: 'Albert Schweitzer' },
+  { frase: 'La única manera de hacer un gran trabajo es amar lo que haces.', autor: 'Steve Jobs' },
+  { frase: 'Haz hoy lo que otros no quieren, para lograr mañana lo que otros no pueden.', autor: 'Jerry Rice' },
+  { frase: 'El fracaso es simplemente la oportunidad de comenzar de nuevo, esta vez de forma más inteligente.', autor: 'Henry Ford' }
 ]
 
 export default {

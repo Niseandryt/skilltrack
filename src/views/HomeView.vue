@@ -1,7 +1,9 @@
 <template>
   <div>
+    <!-- Hero con el título de la app y la frase motivacional de la API -->
     <hero-component></hero-component>
 
+    <!-- Formulario para registrar una habilidad nueva -->
     <skill-form-component @agregar-habilidad="agregarHabilidad"></skill-form-component>
 
     <h2 class="text-h5 font-weight-bold mb-4">
@@ -9,6 +11,7 @@
       Mis habilidades
     </h2>
 
+    <!-- Mensaje cuando todavía no hay habilidades registradas -->
     <v-alert
       v-if="habilidades.length === 0"
       type="info"
@@ -18,6 +21,8 @@
       Aún no tienes habilidades registradas. ¡Usa el formulario de arriba para agregar la primera!
     </v-alert>
 
+    <!-- Una tarjeta por cada habilidad; los eventos de la tarjeta se conectan
+         con los métodos que llaman a las acciones del store -->
     <skill-card-component
       v-for="habilidad in habilidades"
       :key="habilidad.id"
@@ -44,11 +49,13 @@ export default {
     SkillCardComponent
   },
   computed: {
+    // Lista de habilidades leída del store; se actualiza sola al cambiar el estado
     habilidades() {
       return this.$store.getters.obtenerHabilidades
     }
   },
   methods: {
+    // Cada método despacha (dispatch) la acción del store correspondiente
     agregarHabilidad(datos) {
       this.$store.dispatch('agregarHabilidad', datos)
     },

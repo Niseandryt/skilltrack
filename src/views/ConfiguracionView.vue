@@ -5,6 +5,7 @@
       Configuración
     </h1>
 
+    <!-- Sección de apariencia: interruptor para cambiar entre tema claro y oscuro -->
     <v-card elevation="3" class="mb-6">
       <v-card-title class="d-flex align-center">
         <v-icon icon="mdi-palette-outline" class="mr-2" color="primary"></v-icon>
@@ -23,6 +24,7 @@
       </v-card-text>
     </v-card>
 
+    <!-- Sección de datos: exporta toda la información a un archivo JSON -->
     <v-card elevation="3" class="mb-6">
       <v-card-title class="d-flex align-center">
         <v-icon icon="mdi-database-export-outline" class="mr-2" color="primary"></v-icon>
@@ -39,6 +41,7 @@
       </v-card-text>
     </v-card>
 
+    <!-- Zona peligrosa: acción irreversible para borrar todos los datos -->
     <v-card elevation="3" class="zona-peligrosa">
       <v-card-title class="d-flex align-center text-error">
         <v-icon icon="mdi-alert-octagon-outline" class="mr-2" color="error"></v-icon>
@@ -55,6 +58,7 @@
       </v-card-text>
     </v-card>
 
+    <!-- Diálogo de confirmación antes de borrar los datos -->
     <v-dialog v-model="dialogoBorrado" max-width="450">
       <v-card>
         <v-card-title class="text-error">
@@ -72,6 +76,7 @@
       </v-card>
     </v-dialog>
 
+    <!-- Aviso temporal que confirma que los datos fueron eliminados -->
     <v-snackbar v-model="avisoBorrado" color="error" timeout="2500">
       <v-icon icon="mdi-delete-forever" start></v-icon>
       Todos los datos fueron eliminados
@@ -84,19 +89,22 @@ export default {
   name: 'ConfiguracionView',
   data() {
     return {
-      dialogoBorrado: false,
-      avisoBorrado: false
+      dialogoBorrado: false,  // Controla si el diálogo de confirmación está abierto
+      avisoBorrado: false     // Controla el aviso de "datos eliminados"
     }
   },
   computed: {
+    // true si el tema guardado en el store es el oscuro
     temaOscuro() {
       return this.$store.getters.obtenerTema === 'dark'
     }
   },
   methods: {
+    // Guarda el tema elegido en el store; App.vue lo aplica en Vuetify
     cambiarTema(esOscuro) {
       this.$store.dispatch('establecerTema', esOscuro ? 'dark' : 'light')
     },
+    // Genera un archivo JSON con todos los datos y lo descarga en el navegador
     exportarDatos() {
       const datos = {
         habilidades: this.$store.getters.obtenerHabilidades,
@@ -105,12 +113,14 @@ export default {
       }
       const contenido = JSON.stringify(datos, null, 2)
       const archivo = new Blob([contenido], { type: 'application/json' })
+      // Se crea un enlace temporal invisible para forzar la descarga
       const enlace = document.createElement('a')
       enlace.href = URL.createObjectURL(archivo)
       enlace.download = 'skilltrack-datos.json'
       enlace.click()
       URL.revokeObjectURL(enlace.href)
     },
+    // Borra todos los datos del store (y por lo tanto de localStorage)
     confirmarBorrado() {
       this.$store.dispatch('borrarDatos')
       this.dialogoBorrado = false
@@ -121,6 +131,7 @@ export default {
 </script>
 
 <style scoped>
+/* Borde rojo alrededor de la tarjeta de la zona peligrosa */
 .zona-peligrosa {
   border: 1px solid rgb(var(--v-theme-error));
 }

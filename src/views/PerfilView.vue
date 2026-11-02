@@ -6,8 +6,10 @@
     </h1>
 
     <v-row>
+      <!-- Tarjeta de vista previa: muestra cómo se ve el perfil guardado -->
       <v-col cols="12" md="5">
         <v-card elevation="3" class="text-center pa-6">
+          <!-- Si hay URL de avatar se muestra la imagen; si no, un icono genérico -->
           <v-avatar size="120" class="mb-4" color="primary">
             <v-img v-if="perfil.avatar" :src="perfil.avatar" :alt="perfil.nombre" cover></v-img>
             <v-icon v-else icon="mdi-account" size="64"></v-icon>
@@ -26,6 +28,7 @@
         </v-card>
       </v-col>
 
+      <!-- Formulario de personalización del perfil -->
       <v-col cols="12" md="7">
         <v-card elevation="3">
           <v-card-title>Personalizar perfil</v-card-title>
@@ -66,6 +69,7 @@
       </v-col>
     </v-row>
 
+    <!-- Aviso temporal que confirma que el perfil se guardó -->
     <v-snackbar v-model="avisoGuardado" color="success" timeout="2500">
       <v-icon icon="mdi-check-circle" start></v-icon>
       Perfil guardado correctamente
@@ -78,6 +82,7 @@ export default {
   name: 'PerfilView',
   data() {
     return {
+      // Copia local del perfil que se edita en el formulario
       formulario: {
         nombre: '',
         avatar: '',
@@ -87,16 +92,19 @@ export default {
     }
   },
   computed: {
+    // Perfil guardado en el store (el que se muestra en la vista previa)
     perfil() {
       return this.$store.getters.obtenerPerfil
     }
   },
+  // Ciclo de vida: al crearse la vista, el formulario se llena con el perfil actual
   created() {
     this.formulario.nombre = this.perfil.nombre
     this.formulario.avatar = this.perfil.avatar
     this.formulario.metaPrincipal = this.perfil.metaPrincipal
   },
   methods: {
+    // Guarda el formulario en el store y muestra el aviso de confirmación
     guardarPerfil() {
       this.$store.dispatch('actualizarPerfil', {
         nombre: this.formulario.nombre.trim(),

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Fila de tarjetas con las estadísticas generales (StatCard) -->
     <v-row>
       <v-col cols="12" sm="6" md="3">
         <stat-card-component
@@ -35,6 +36,7 @@
       </v-col>
     </v-row>
 
+    <!-- Resumen detallado: una barra de progreso por cada habilidad -->
     <v-card elevation="3" class="mt-6">
       <v-card-title class="d-flex align-center">
         <v-icon icon="mdi-view-list-outline" class="mr-2" color="primary"></v-icon>
@@ -51,6 +53,7 @@
           <progress-bar-component :progreso="progresoDe(habilidad)"></progress-bar-component>
         </div>
       </v-card-text>
+      <!-- Aviso cuando todavía no hay habilidades registradas -->
       <v-card-text v-else>
         <v-alert type="info" variant="tonal" icon="mdi-information-outline">
           Todavía no hay habilidades registradas. Agrega una desde la página de inicio.
@@ -71,6 +74,8 @@ export default {
     ProgressBarComponent
   },
   computed: {
+    // Todas las estadísticas se leen de los getters del store de Vuex,
+    // así se actualizan solas cuando cambian los datos
     habilidades() {
       return this.$store.getters.obtenerHabilidades
     },
@@ -91,6 +96,7 @@ export default {
     }
   },
   methods: {
+    // Usa el getter con parámetro del store para calcular el progreso de una habilidad
     progresoDe(habilidad) {
       return this.$store.getters.progresoHabilidad(habilidad)
     }
